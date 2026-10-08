@@ -1,5 +1,4 @@
-   <!doctype html>
-   <html lang="en" style="background:#161616">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!doctype html>
 <html lang="en" style="background:#161616">
 <head>
@@ -39,9 +38,11 @@ body{
 button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 #ground{position:fixed;inset:0;background:#161616;z-index:0;pointer-events:none}
 #app{position:relative;z-index:1;height:100%;max-width:480px;margin:0 auto;padding:12px 26px 14px 26px;display:flex;flex-direction:column}
-/* embed fix, added for the Circle iframe test: let the card grow when it's given more room (tablet/desktop embeds) instead of staying pinned to a phone width with dead space on both sides */
-@media (min-width:640px) and (min-height:560px){#app{max-width:560px}}
-@media (min-width:900px) and (min-height:640px){#app{max-width:640px}}
+/* embed fix v2: the v1 fix used width breakpoints (640px/900px), but inside a Circle iframe the viewport width IS the iframe's own box, which Circle
+   sizes to its post width, not the device screen width -- so those breakpoints rarely fired (confirmed: still cramped on phone, desktop and most iPad
+   views after v1 shipped). Below 480px-wide boxes, nothing changes from the original mobile layout. Above that, max-width switches to a fluid vw-based
+   value (capped at 900px) so the card fills whatever box Circle hands it on any device, with no pixel-guessing needed. */
+@media (min-width:481px){#app{max-width:min(900px,94vw)}}
 .vert.r{left:auto;right:7px;transform:none}
 .vert{position:absolute;left:7px;bottom:22px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,.34);pointer-events:none}
 @media (max-height:660px){.vert{display:none}}
@@ -2222,6 +2223,4 @@ window.__miZoomPlan=zoomPlan;
 </body>
 </html>
 
-   </script>
-   </body>
-   </html>
+</body></html>
